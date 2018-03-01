@@ -1,9 +1,9 @@
 pragma solidity ^0.4.18;
 
-import "./OpenZeppelin/MintableToken.sol";
 import "./OpenZeppelin/BurnableToken.sol";
+import "./OpenZeppelin/PausableERC827Token.sol";
 
-contract BerryToken is MintableToken, BurnableToken {
+contract BerryToken is PausableERC827Token, BurnableToken {
 
     string public constant name = "Berry";
     string public constant symbol = "BERRY";
