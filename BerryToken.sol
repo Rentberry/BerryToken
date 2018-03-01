@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 import "./OpenZeppelin/BurnableToken.sol";
-import "./OpenZeppelin/PausableERC827Token.sol";
+import "./PausableERC827Token.sol";
 
 contract BerryToken is PausableERC827Token, BurnableToken {
 
@@ -10,8 +10,8 @@ contract BerryToken is PausableERC827Token, BurnableToken {
     uint32 public constant decimals = 14;
 
     function BerryToken() public {
-        totalSupply = 400000000E14;
-        balances[owner] = totalSupply; // Add all tokens to issuer balance (crowdsale in this case)
+        totalSupply_ = 400000000E14;
+        balances[owner] = totalSupply_; // Add all tokens to issuer balance (crowdsale in this case)
     }
 
 }
