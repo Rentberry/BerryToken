@@ -170,7 +170,6 @@ contract BerryCrowdsale is Ownable {
     function manualReserve(address _beneficiary, uint _amount) public onlyOwner crowdsaleInProgress {
         require(_beneficiary != address(0));
         require(_amount > 0);
-        checkAndMint(_amount);
         tokensDistributed = tokensDistributed.add(_amount);
         token.transfer(_beneficiary, _amount);
     }
@@ -186,7 +185,6 @@ contract BerryCrowdsale is Ownable {
 
     function distribute_for_founders() public crowdsaleEnded onlyOwner {
         uint to_send = totalSupply.mul(30).div(70);
-        checkAndMint(to_send);
         token.transfer(wallet, to_send);
     }
 
@@ -219,7 +217,6 @@ contract BerryCrowdsale is Ownable {
         if (contributors[_beneficiary] == 0) investors_number.push(_beneficiary);
 
         _tokens = calculateBonus(_tokens, cleanWei);
-        checkAndMint(_tokens);
 
         contributors[_beneficiary] = contributors[_beneficiary].add(cleanWei);
         weiRaised = weiRaised.add(cleanWei);
@@ -301,12 +298,5 @@ contract BerryCrowdsale is Ownable {
                 return _baseAmount;
             }
         }
-    }
-
-    // Checks if more tokens should be minted based on amount of sold tokens, required additional tokens and total supply.
-    // If there are not enough tokens, mint missing tokens
-    function checkAndMint(uint _amount) internal {
-        uint required = tokensDistributed.add(_amount);
-        if(required > totalSupply) token.mint(this, required.sub(totalSupply));
     }
 }
